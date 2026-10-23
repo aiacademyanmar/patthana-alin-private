@@ -44,6 +44,8 @@ public class NativePdfReaderActivity extends Activity {
         bookId=getIntent().getStringExtra("book_id");
         bookTitle=getIntent().getStringExtra("book_title");
         prefs=getSharedPreferences(comicMode?"comic_reader_v31":(bookId!=null?"ebook_"+bookId:"pdf_reader_preview"),MODE_PRIVATE);
+        String direct=getIntent().getStringExtra("local_pdf_path");
+        if(direct!=null){try{File file=new File(direct);File base=new File(getFilesDir(),"drive-books");if(file.getCanonicalPath().startsWith(base.getCanonicalPath()+File.separator)&&file.isFile()){open(Uri.fromFile(file));return;}}catch(Exception ignored){}}
         String bundled=getIntent().getStringExtra("asset_pdf");
         if(bundled!=null){try{openBundled(bundled);return;}catch(Exception ignored){}}
         String saved=prefs.getString("selected_pdf",null);
