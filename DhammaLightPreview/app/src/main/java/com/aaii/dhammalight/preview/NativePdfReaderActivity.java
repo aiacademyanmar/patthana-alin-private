@@ -47,6 +47,7 @@ public class NativePdfReaderActivity extends Activity {
         }
         pick();
     }
+    private int bookIndex(String id){for(int i=0;i<DriveBookCatalogActivity.DRIVE_IDS.length;i++)if(id.equals(DriveBookCatalogActivity.DRIVE_IDS[i]))return i;return -1;}
     private void pick(){
         picking=true;
         Intent i=new Intent(Intent.ACTION_OPEN_DOCUMENT);
@@ -74,6 +75,7 @@ public class NativePdfReaderActivity extends Activity {
         int requested=getIntent().getIntExtra("lesson_page",-1);
         current=Math.max(0,Math.min(total-1,requested>=0?requested:prefs.getInt("saved_page",0)));
         zoom=1.0f;
+        if(bookId!=null)getSharedPreferences("patthana_ebook_catalog",MODE_PRIVATE).edit().putBoolean("linked_"+bookIndex(bookId),true).apply();
         build();draw();
     }
     private Button button(String value,Runnable action){
