@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+  <uses-permission android:name="android.permission.INTERNET"/>
   <application android:label="Dhamma Light Kids Preview"
      android:allowBackup="false" android:theme="@android:style/Theme.Material.Light.NoActionBar"
      android:usesCleartextTraffic="false">
@@ -9,6 +10,8 @@
     <activity android:name=".BundledComicReaderActivity" android:exported="false"/>
     <activity android:name=".NativePdfReaderActivity" android:exported="false"/>
     <activity android:name=".MainActivity" android:exported="false"/>
+    <activity android:name=".DriveInAppReaderActivity" android:exported="false"/>
+    <activity android:name=".DrivePreviewActivity" android:exported="false"/>
     <activity android:name=".OfflineLibraryActivity" android:exported="false"/>
     <activity android:name=".ComicPrototypeActivity" android:exported="false"/>
     <activity android:name=".OfflineHomeActivity" android:exported="true">
