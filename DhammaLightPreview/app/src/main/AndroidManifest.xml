@@ -3,6 +3,7 @@
   <application android:label="Dhamma Light Kids Preview"
      android:allowBackup="false" android:theme="@android:style/Theme.Material.Light.NoActionBar"
      android:usesCleartextTraffic="false">
+    <activity android:name=".NativePdfReaderActivity" android:exported="false"/>
     <activity android:name=".MainActivity" android:exported="true">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
