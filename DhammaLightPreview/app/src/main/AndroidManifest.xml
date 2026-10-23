@@ -9,7 +9,9 @@
     <activity android:name=".BundledComicReaderActivity" android:exported="false"/>
     <activity android:name=".NativePdfReaderActivity" android:exported="false"/>
     <activity android:name=".MainActivity" android:exported="false"/>
-    <activity android:name=".ComicPrototypeActivity" android:exported="true">
+    <activity android:name=".OfflineLibraryActivity" android:exported="false"/>
+    <activity android:name=".ComicPrototypeActivity" android:exported="false"/>
+    <activity android:name=".OfflineHomeActivity" android:exported="true">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
         <category android:name="android.intent.category.LAUNCHER"/>
