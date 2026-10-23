@@ -6,8 +6,8 @@ android {
     applicationId 'com.aaii.dhammalight.preview'
     minSdk 24
     targetSdk 34
-    versionCode 4
-    versionName '3.3.0-drive-elibrary'
+    versionCode 5
+    versionName '3.3.1-daily-channel'
   }
   compileOptions {
     sourceCompatibility JavaVersion.VERSION_17
