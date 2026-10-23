@@ -1,9 +1,9 @@
-name: Dhamma Light Daily Channel V3.3 Native APK
+name: Dhamma Light Daily Reading V4.1 Native APK
 on:
   workflow_dispatch:
   push:
     branches:
-      - dhamma-light-daily-channel-v3-3
+      - dhamma-light-daily-reading-v4-1
 jobs:
   compile:
     runs-on: ubuntu-latest
@@ -27,17 +27,17 @@ jobs:
       - name: Validate APK exists and compute checksum
         run: |
           test -s DhammaLightPreview/app/build/outputs/apk/debug/app-debug.apk
-          cp DhammaLightPreview/app/build/outputs/apk/debug/app-debug.apk DhammaLight_DailyChannel_V3_3_PROTOTYPE.apk
-          sha256sum DhammaLight_DailyChannel_V3_3_PROTOTYPE.apk > DhammaLight_DailyChannel_V3_3_PROTOTYPE.apk.sha256
+          cp DhammaLightPreview/app/build/outputs/apk/debug/app-debug.apk DhammaLight_DailyReading_V4_1_PROTOTYPE.apk
+          sha256sum DhammaLight_DailyReading_V4_1_PROTOTYPE.apk > DhammaLight_DailyReading_V4_1_PROTOTYPE.apk.sha256
       - name: Package Gradle Android Source
         run: |
-          zip -r -q DhammaLight_DailyChannel_V3_3_GRADLE_SOURCE.zip DhammaLightPreview .github/workflows/dhamma-light-preview-apk.yml
-          test -s DhammaLight_DailyChannel_V3_3_GRADLE_SOURCE.zip
+          zip -r -q DhammaLight_DailyReading_V4_1_GRADLE_SOURCE.zip DhammaLightPreview .github/workflows/dhamma-light-preview-apk.yml
+          test -s DhammaLight_DailyReading_V4_1_GRADLE_SOURCE.zip
       - uses: actions/upload-artifact@v4
         with:
-          name: Dhamma-Light-DailyChannel-V3_3-APK
+          name: Dhamma-Light-DailyReading-V4_1-APK
           path: |
-            DhammaLight_DailyChannel_V3_3_PROTOTYPE.apk
-            DhammaLight_DailyChannel_V3_3_PROTOTYPE.apk.sha256
-            DhammaLight_DailyChannel_V3_3_GRADLE_SOURCE.zip
+            DhammaLight_DailyReading_V4_1_PROTOTYPE.apk
+            DhammaLight_DailyReading_V4_1_PROTOTYPE.apk.sha256
+            DhammaLight_DailyReading_V4_1_GRADLE_SOURCE.zip
           if-no-files-found: error
