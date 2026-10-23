@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
   <uses-permission android:name="android.permission.INTERNET"/>
-  <application android:label="Dhamma Light Kids Preview"
+  <application android:label="မြတ်ပဋ္ဌန်း · Dhamma Light"
      android:allowBackup="false" android:theme="@android:style/Theme.Material.Light.NoActionBar"
      android:usesCleartextTraffic="false">
     <activity android:name=".TimedRecitationActivity" android:exported="false"/>
@@ -11,7 +11,8 @@
     <activity android:name=".BundledComicReaderActivity" android:exported="false"/>
     <activity android:name=".NativePdfReaderActivity" android:exported="false"/>
     <activity android:name=".MainActivity" android:exported="false"/>
-    <activity android:name=".ComicPrototypeActivity" android:exported="true">
+    <activity android:name=".ComicPrototypeActivity" android:exported="false"/>
+    <activity android:name=".MyatHomeActivity" android:exported="true">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
         <category android:name="android.intent.category.LAUNCHER"/>
