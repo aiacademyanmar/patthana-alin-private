@@ -145,6 +145,7 @@ public final class ComicPrototypeActivity extends Activity {
     attach(main,hero,-2,8);
     attach(main,btn("▶ ရုပ်ပြသင်ခန်းစာများ စတင်ဖတ်ရန်",GOLD,INK,()->library("")),57,8);
     feature("▣  မူရင်း Comic Reader","ဖုန်းမှ မူရင်း ၂၄ မျက်နှာ PDF ကို တစ်ကြိမ်ရွေးပြီး App အတွင်းဖတ်ရန်",TEAL,()->openReader(prefs.getInt("last_lesson",0)));
+    feature("📚  Google Drive eLibrary · စာအုပ် ၁၀ အုပ်","စာအုပ်အမည် ကြိုတင်ထည့်ထားပြီး App အတွင်း PDF ဖတ်ရန်",TEAL,()->startActivity(new Intent(this,DriveBookCatalogActivity.class)));
     feature("☷  ပစ္စည်း ၂၄ မျိုး","အမည်ရှာခြင်း၊ အဓိပ္ပာယ်၊ တစ်ရွက်ချင်း ရွေးဖတ်ခြင်း",MAROON,()->library(""));
     feature("★  Bookmark & Progress","နောက်ဆုံးဖတ်ခဲ့သည့်စာမျက်နှာ၊ အကြိုက်ဆုံးသင်ခန်းစာများ",TEAL,this::progress);
     feature("♫  အသံဖတ်ပြခြင်း","ဖုန်းတွင် မြန်မာ TTS ရှိလျှင် ပါဠိအမည်နှင့် အဓိပ္ပာယ်ကိုဖတ်ပြ",TEAL,()->detail(prefs.getInt("last_lesson",0)));
@@ -222,6 +223,7 @@ public final class ComicPrototypeActivity extends Activity {
     lastMode="more";start("MORE LEARNING");
     label("Dhamma Light · Native Comic APK Prototype",21,true);
     feature("စာဖတ် / Quiz / YouTube Links","ယခင် Native Preview သင်ခန်းစာများကို ဆက်လက်အသုံးပြုရန်",TEAL,()->startActivity(new Intent(this,MainActivity.class)));
+    feature("📚  Google Drive စာအုပ် ၁၀ အုပ်","Catalog + စာအုပ်တစ်အုပ်ချင်းဖတ်ရန်",TEAL,()->startActivity(new Intent(this,DriveBookCatalogActivity.class)));
     feature("စာအုပ်သီးသန့် PDF Reader","အခြားစာအုပ်ကို Native PDF Reader ဖြင့် ဖတ်ရန်",MAROON,()->startActivity(new Intent(this,NativePdfReaderActivity.class)));
     label("App ထဲတွင် မူရင်း PDF ကို မ Upload/မ Share လုပ်ပါ။ Android File Picker ဖြင့် မိမိဖုန်းမှ ရွေးဖတ်ခြင်းသာ ဖြစ်ပါတယ်။",13,false);
     label("V3.1 Debug Prototype — 24 comic lessons; source is public-safe; device QA remains.",12,false);
