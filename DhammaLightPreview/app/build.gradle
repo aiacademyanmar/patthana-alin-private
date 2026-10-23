@@ -6,8 +6,8 @@ android {
     applicationId 'com.aaii.dhammalight.preview'
     minSdk 24
     targetSdk 34
-    versionCode 6
-    versionName '4.2.0-timed-recitation'
+    versionCode 7
+    versionName '5.0.0-myat-patthana'
   }
   compileOptions {
     sourceCompatibility JavaVersion.VERSION_17
