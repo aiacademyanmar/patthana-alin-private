@@ -2,9 +2,7 @@ name: Patthana Reader V4 Native Android APK
 on:
   push:
     branches: [reader-v4-native-oct23-2026]
-    paths:
-      - 'V4Reader/**'
-      - '.github/workflows/patthana-v4-reader.yml'
+    paths: ['V4Reader/**', '.github/workflows/patthana-v4-reader.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -21,9 +19,9 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - uses: android-actions/setup-android@v3
-      - name: Android platform 35 and build tools
-        run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
+      - name: Android SDK from GitHub runner
+        run: |
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-35" "build-tools;35.0.0"
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.11.1'
@@ -33,12 +31,11 @@ jobs:
         run: |
           test -s app/build/outputs/apk/debug/app-debug.apk
           "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify app/build/outputs/apk/debug/app-debug.apk
-      - name: Bundle APK plus signing utility (for local asset packaging)
+      - name: Bundle APK and signing tool
         run: |
           mkdir -p output
           cp app/build/outputs/apk/debug/app-debug.apk output/Patthana_Reader_V4_unbundled.apk
           cp "$ANDROID_HOME/build-tools/35.0.0/lib/apksigner.jar" output/apksigner.jar
-          sha256sum output/Patthana_Reader_V4_unbundled.apk > output/SHA256SUMS.txt
       - uses: actions/upload-artifact@v4
         with:
           name: Patthana_Reader_V4_Compiled_APK
