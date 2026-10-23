@@ -29,10 +29,14 @@ public class NativePdfReaderActivity extends Activity {
     private SharedPreferences prefs;
     private int current=0, total=0;
     private boolean picking=false;
+    private boolean comicMode=false;
+    private float zoom=1.0f;
+    private LinearLayout tools;
 
     @Override public void onCreate(Bundle state){
         super.onCreate(state);
-        prefs=getSharedPreferences("pdf_reader_preview",MODE_PRIVATE);
+        comicMode=getIntent().getBooleanExtra("comic_mode",false);
+        prefs=getSharedPreferences(comicMode?"comic_reader_v31":"pdf_reader_preview",MODE_PRIVATE);
         String saved=prefs.getString("selected_pdf",null);
         if(saved!=null){
             try{open(Uri.parse(saved));return;}catch(Exception ignored){}
@@ -63,7 +67,9 @@ public class NativePdfReaderActivity extends Activity {
         if(descriptor==null)throw new IOException("PDF not available");
         renderer=new PdfRenderer(descriptor);
         total=renderer.getPageCount();if(total<1)throw new IOException("Empty PDF");
-        current=Math.max(0,Math.min(total-1,prefs.getInt("saved_page",0)));
+        int requested=getIntent().getIntExtra("lesson_page",-1);
+        current=Math.max(0,Math.min(total-1,requested>=0?requested:prefs.getInt("saved_page",0)));
+        zoom=1.0f;
         build();draw();
     }
     private Button button(String value,Runnable action){
@@ -72,7 +78,7 @@ public class NativePdfReaderActivity extends Activity {
     }
     private void build(){
         LinearLayout root=new LinearLayout(this);root.setOrientation(LinearLayout.VERTICAL);root.setBackgroundColor(Color.rgb(5,28,34));setContentView(root);
-        TextView head=new TextView(this);head.setText("☸  Native PDF Reader · Google Drive Picker");
+        TextView head=new TextView(this);head.setText(comicMode?"☸  Dhamma Light  •  ရုပ်ပြ ပဋ္ဌာန်း":"☸  Native PDF Reader");
         head.setTextSize(16);head.setTextColor(Color.rgb(244,203,114));head.setPadding(20,18,10,16);
         root.addView(head);
         image=new ImageView(this);image.setBackgroundColor(Color.WHITE);
@@ -90,11 +96,24 @@ public class NativePdfReaderActivity extends Activity {
             public void onStopTrackingTouch(SeekBar bar){jump(bar.getProgress());}
         });
         root.addView(seek);
-        LinearLayout tools=new LinearLayout(this);
+        tools=new LinearLayout(this);
         tools.addView(button("★ Save",()->{prefs.edit().putInt("marked_page",current).apply();Toast.makeText(this,"Page bookmarked",Toast.LENGTH_SHORT).show();}),new LinearLayout.LayoutParams(0,65,1));
         tools.addView(button("↪ Bookmark",()->jump(prefs.getInt("marked_page",current))),new LinearLayout.LayoutParams(0,65,1));
         tools.addView(button("Other PDF",this::pick),new LinearLayout.LayoutParams(0,65,1));
+        if(comicMode){
+          tools.addView(button("− Zoom",()->{zoom=Math.max(0.65f,zoom-0.25f);draw();}),new LinearLayout.LayoutParams(0,65,1));
+          tools.addView(button("+ Zoom",()->{zoom=Math.min(3.0f,zoom+0.25f);draw();}),new LinearLayout.LayoutParams(0,65,1));
+        }
         root.addView(tools);
+        if(comicMode){
+          LinearLayout bar=new LinearLayout(this);
+          bar.addView(button("✓ ဖတ်ပြီး",()->{
+            getSharedPreferences("comic_prototype",MODE_PRIVATE).edit().putBoolean("read_"+Math.min(current,23),true).apply();
+            Toast.makeText(this,"Lesson marked read",Toast.LENGTH_SHORT).show();
+          }),new LinearLayout.LayoutParams(0,60,1));
+          bar.addView(button("★ Bookmark",()->{prefs.edit().putInt("marked_page",current).apply();Toast.makeText(this,"Page bookmarked",Toast.LENGTH_SHORT).show();}),new LinearLayout.LayoutParams(0,60,1));
+          root.addView(bar);
+        }
     }
     private void jump(int page){
         if(page<0||page>=total)return;current=page;draw();
@@ -103,17 +122,21 @@ public class NativePdfReaderActivity extends Activity {
         if(renderer==null)return;
         if(bitmap!=null){image.setImageDrawable(null);bitmap.recycle();bitmap=null;}
         try(PdfRenderer.Page pdf=renderer.openPage(current)){
-            float factor=Math.min(2.5f,1500f/Math.max(pdf.getWidth(),pdf.getHeight()));
+            float factor=Math.min(3.0f,Math.min(2.0f,1600f/Math.max(pdf.getWidth(),pdf.getHeight()))*zoom);
+            final long pixels=(long)(pdf.getWidth()*factor)*(long)(pdf.getHeight()*factor);
+            if(pixels>5500000L)factor*=(float)Math.sqrt(5500000.0/(double)pixels);
             int w=Math.max(1,(int)(pdf.getWidth()*factor));
             int h=Math.max(1,(int)(pdf.getHeight()*factor));
             bitmap=Bitmap.createBitmap(w,h,Bitmap.Config.ARGB_8888);
             bitmap.eraseColor(Color.WHITE);
             pdf.render(bitmap,null,null,PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
             image.setImageBitmap(bitmap);
+            image.setScaleType(zoom>1.0f?ImageView.ScaleType.CENTER_CROP:ImageView.ScaleType.FIT_CENTER);
         }catch(Exception e){Toast.makeText(this,"Page render error",Toast.LENGTH_LONG).show();}
         counter.setText((current+1)+" / "+total);
         seek.setProgress(current);
         prefs.edit().putInt("saved_page",current).apply();
+        if(comicMode)getSharedPreferences("comic_prototype",MODE_PRIVATE).edit().putInt("last_lesson",Math.min(current,23)).apply();
     }
     private void closePdf(){
         if(image!=null)image.setImageDrawable(null);
