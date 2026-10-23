@@ -4,6 +4,7 @@
   <application android:label="Dhamma Light Kids Preview"
      android:allowBackup="false" android:theme="@android:style/Theme.Material.Light.NoActionBar"
      android:usesCleartextTraffic="false">
+    <activity android:name=".TimedRecitationActivity" android:exported="false"/>
     <activity android:name=".DailyReadingActivity" android:exported="false"/>
     <activity android:name=".DailyChannelActivity" android:exported="false"/>
     <activity android:name=".DriveBookCatalogActivity" android:exported="false"/>
