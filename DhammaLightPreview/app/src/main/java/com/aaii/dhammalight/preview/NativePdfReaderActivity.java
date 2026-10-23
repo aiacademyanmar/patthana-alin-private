@@ -17,6 +17,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 
 public class NativePdfReaderActivity extends Activity {
     private static final int PICK=107;
@@ -41,11 +44,23 @@ public class NativePdfReaderActivity extends Activity {
         bookId=getIntent().getStringExtra("book_id");
         bookTitle=getIntent().getStringExtra("book_title");
         prefs=getSharedPreferences(comicMode?"comic_reader_v31":(bookId!=null?"ebook_"+bookId:"pdf_reader_preview"),MODE_PRIVATE);
+        String bundled=getIntent().getStringExtra("asset_pdf");
+        if(bundled!=null){try{openBundled(bundled);return;}catch(Exception ignored){}}
         String saved=prefs.getString("selected_pdf",null);
         if(saved!=null){
             try{open(Uri.parse(saved));return;}catch(Exception ignored){}
         }
         pick();
+    }
+    private void openBundled(String asset) throws IOException {
+       if(!"books/patthana_jjyy.pdf".equals(asset))throw new IOException("Unsupported asset");
+       File tmp=new File(getCacheDir(),"offline_patthana_jjyy.pdf");
+       if(!tmp.exists()||tmp.length()==0){
+          try(InputStream in=getAssets().open(asset);FileOutputStream out=new FileOutputStream(tmp)){
+            byte[] block=new byte[65536];int n;while((n=in.read(block))!=-1)out.write(block,0,n);
+          }
+       }
+       open(Uri.fromFile(tmp));
     }
     private int bookIndex(String id){for(int i=0;i<DriveBookCatalogActivity.DRIVE_IDS.length;i++)if(id.equals(DriveBookCatalogActivity.DRIVE_IDS[i]))return i;return -1;}
     private void pick(){
