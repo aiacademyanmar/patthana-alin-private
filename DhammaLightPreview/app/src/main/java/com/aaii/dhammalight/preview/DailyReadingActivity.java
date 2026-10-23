@@ -147,6 +147,7 @@ public final class DailyReadingActivity extends Activity {
     add(card("📖 မူရင်းစာအုပ် ကိုးကားချက်\nမြတ်ပဋ္ဌန်း · Scan PDF ၂၈ မျက်နှာ\nပစ္စယောအမည်များနှင့် ဆက်စပ်ပါဠိကို မူရင်းစာအုပ်တွင် တိုက်စစ်ဖတ်ပါ။ တိကျသည့် စာပိုဒ်-စာမျက်နှာ Mapping ကို စိစစ်နေဆဲဖြစ်သည်။",14,false),5);
     String saved=prefs.getString("note_"+selected,"");
     add(button(saved.isEmpty()?"✍ ကိုယ်ပိုင်မှတ်စုရေးမည်":"✍ မှတ်စုကြည့် / ပြင်မည်",Color.WHITE,TEAL,this::editNote),3);
+    add(button("♫ စာပိုဒ်လိုက် အသံနှင့် Highlight",TEAL,Color.WHITE,()->{Intent i=new Intent(this,TimedRecitationActivity.class);i.putExtra("lesson_index",selected);startActivity(i);}),3);
     add(button("🔊 မြန်မာအသံ ဖတ်ပြပါ",TEAL,Color.WHITE,()->readAloud(passage())),3);
     add(button("📚 မြတ်ပဋ္ဌန်း PDF ကို Native Reader မှ ဖွင့်မည်",TEAL,Color.WHITE,this::openSource),3);
     add(button(prefs.getBoolean("lesson_"+selected,false)?"✓ ဖတ်ပြီး — ပြန်ဖတ်နိုင်သည်":"✓ ယနေ့ ဖတ်ပြီးမှတ်သားမည်",GOLD,BROWN,()->{
