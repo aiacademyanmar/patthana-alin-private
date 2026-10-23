@@ -1,9 +1,9 @@
-name: Dhamma Light Comic V3.1 Native APK
+name: Dhamma Light Drive eLibrary V3.3 Native APK
 on:
   workflow_dispatch:
   push:
     branches:
-      - dhamma-light-comic-prototype-20261023
+      - dhamma-light-drive-elibrary-v3-3-20261023
 jobs:
   compile:
     runs-on: ubuntu-latest
@@ -27,17 +27,17 @@ jobs:
       - name: Validate APK exists and compute checksum
         run: |
           test -s DhammaLightPreview/app/build/outputs/apk/debug/app-debug.apk
-          cp DhammaLightPreview/app/build/outputs/apk/debug/app-debug.apk DhammaLight_Comic_V3_1_PROTOTYPE.apk
-          sha256sum DhammaLight_Comic_V3_1_PROTOTYPE.apk > DhammaLight_Comic_V3_1_PROTOTYPE.apk.sha256
+          cp DhammaLightPreview/app/build/outputs/apk/debug/app-debug.apk DhammaLight_Drive_eLibrary_V3_3_PROTOTYPE.apk
+          sha256sum DhammaLight_Drive_eLibrary_V3_3_PROTOTYPE.apk > DhammaLight_Drive_eLibrary_V3_3_PROTOTYPE.apk.sha256
       - name: Package Gradle Android Source
         run: |
-          zip -r -q DhammaLight_Comic_V3_1_GRADLE_SOURCE.zip DhammaLightPreview .github/workflows/dhamma-light-preview-apk.yml
-          test -s DhammaLight_Comic_V3_1_GRADLE_SOURCE.zip
+          zip -r -q DhammaLight_Drive_eLibrary_V3_3_GRADLE_SOURCE.zip DhammaLightPreview .github/workflows/dhamma-light-preview-apk.yml
+          test -s DhammaLight_Drive_eLibrary_V3_3_GRADLE_SOURCE.zip
       - uses: actions/upload-artifact@v4
         with:
-          name: Dhamma-Light-Comic-V3_1-Prototype-APK
+          name: Dhamma-Light-Drive-eLibrary-V3_3-Prototype-APK
           path: |
-            DhammaLight_Comic_V3_1_PROTOTYPE.apk
-            DhammaLight_Comic_V3_1_PROTOTYPE.apk.sha256
-            DhammaLight_Comic_V3_1_GRADLE_SOURCE.zip
+            DhammaLight_Drive_eLibrary_V3_3_PROTOTYPE.apk
+            DhammaLight_Drive_eLibrary_V3_3_PROTOTYPE.apk.sha256
+            DhammaLight_Drive_eLibrary_V3_3_GRADLE_SOURCE.zip
           if-no-files-found: error
