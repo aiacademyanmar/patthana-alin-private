@@ -201,7 +201,7 @@ public final class ComicPrototypeActivity extends Activity {
   private void openReader(int num){
     active=Math.max(0,Math.min(23,num));
     prefs.edit().putInt("last_lesson",active).apply();
-    Intent intent=new Intent(this,NativePdfReaderActivity.class);
+    Intent intent=new Intent(this,BundledComicReaderActivity.class);
     intent.putExtra("comic_mode",true);intent.putExtra("lesson_page",active);
     startActivity(intent);
   }
