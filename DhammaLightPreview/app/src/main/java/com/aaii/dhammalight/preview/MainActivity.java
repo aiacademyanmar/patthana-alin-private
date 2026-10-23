@@ -105,6 +105,7 @@ public class MainActivity extends Activity {
         int stars=0;for(int i=0;i<24;i++)stars+=prefs.getInt("q"+i,0);
         line("⭐ ရရှိပြီးသောကြယ်ပွင့်  "+stars+" / 48");
         btn("📖 ၂၄ ပစ္စည်း သင်ခန်းစာများ",this::list);
+        btn("📚 Native Google Drive PDF Reader",()->startActivity(new Intent(this,NativePdfReaderActivity.class)));
         btn("🌳 ဟေတုပစ္စယော · အမြစ် ၆ ပါး",()->detail(0));
         btn("🧩 ကလေးများအတွက် 3D သင်္ကေတ",()->symbol(0));
         btn("▶ ဟေတုပစ္စယော YouTube Lessons",this::videos);
