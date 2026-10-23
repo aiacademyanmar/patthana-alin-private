@@ -71,7 +71,7 @@ public class MainActivity extends Activity {
     button("၃   ပဋ္ဌာန်း အသံတော် (မူရင်းဆိုက်)",()->url("https://www.abhidhamma.com/incl.php?aw=abhidhamma_audios.txt"));
     button("၄   YouTube ဓမ္မ Video Library",this::videos);
     button("၅   ဆရာတော်များ MP3 Library",this::sayadaws);
-    button("၆   ဓမ္မစာအုပ် Google Drive eLibrary",this::books);
+    button("၆   Writer / Category / Native PDF eLibrary",()->startActivity(new Intent(this,LibraryActivity.class)));
     spacer(5);note("Public Build: မူပိုင်ခွင့်ပြန်လည်ဖြန့်ဝေခွင့် မသေချာသေးသည့် MP3 နှင့် မူရင်းပုံများကို APK ထဲ မထည့်ထားပါ။");
   }
   private void conditions(){
