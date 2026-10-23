@@ -93,6 +93,8 @@ public final class DriveBookCatalogActivity extends Activity {
     Button folder=new Button(this);folder.setAllCaps(false);folder.setText("☁ Google Drive Folder ဖွင့်ရန်");
     folder.setOnClickListener(v->{Intent it=new Intent(Intent.ACTION_VIEW,Uri.parse(FOLDER_URL));startActivity(it);});
     root.addView(folder);
+    TextView notice=text("Drive ↗ သည် Google Drive app/browser ထဲဖွင့်သည်။ App ထဲမှာဖတ်ရန်ဆိုပါက PDF ကို ဖုန်းမှရွေးပြီးမှ Native Reader ထဲတွင်ဖွင့်ပါမည်။",12,Color.rgb(95,88,75),false);
+    notice.setPadding(dp(16),dp(8),dp(16),dp(12));root.addView(notice);
     search.addTextChangedListener(new TextWatcher(){
       public void beforeTextChanged(CharSequence s,int start,int count,int after){}
       public void onTextChanged(CharSequence s,int start,int before,int count){populate(s.toString());}
@@ -108,18 +110,24 @@ public final class DriveBookCatalogActivity extends Activity {
       LinearLayout card=new LinearLayout(this);card.setOrientation(LinearLayout.VERTICAL);card.setBackground(bg(Color.WHITE,14));
       card.setPadding(dp(14),dp(12),dp(14),dp(13));
       TextView title=text(String.format(Locale.US,"%02d",i+1)+"  📖  "+BOOK_TITLES[i],16,TEAL,true);card.addView(title);
-      card.addView(text(CATEGORIES[i]+" · PDF · "+(prefs.getBoolean("linked_"+i,false)?"ဖိုင်ချိတ်ဆက်ပြီး":"ဖိုင်ရွေးချယ်ရန်"),12,Color.rgb(131,103,59),false));
+      card.addView(text(CATEGORIES[i]+" · PDF · "+(prefs.getBoolean("linked_"+i,false)?"ဖုန်းမှ PDF ချိတ်ဆက်ပြီး":"PDF ကို ဖုန်းမှရွေးရန်"),12,Color.rgb(131,103,59),false));
       LinearLayout row=new LinearLayout(this);row.setGravity(Gravity.CENTER_VERTICAL);
       Button read=new Button(this);read.setAllCaps(false);read.setText("▣ App ထဲမှာ ဖတ်မည်");
       read.setOnClickListener(v->read(index));row.addView(read,new LinearLayout.LayoutParams(0,dp(54),1));
       Button link=new Button(this);link.setAllCaps(false);link.setText("Drive ↗");
       link.setOnClickListener(v->{Intent intent=new Intent(Intent.ACTION_VIEW,Uri.parse("https://drive.google.com/file/d/"+DRIVE_IDS[index]+"/view"));startActivity(intent);});
       row.addView(link,new LinearLayout.LayoutParams(0,dp(54),1));card.addView(row);
+      if(index==6){
+        Button lessons=new Button(this);lessons.setAllCaps(false);
+        lessons.setText("☷ စာအုပ်မှ ပစ္စည်း ၂၄ မျိုး လေ့လာရန်");
+        lessons.setOnClickListener(v->startActivity(new Intent(this,PatthanaBookLessonActivity.class)));
+        card.addView(lessons);
+      }
       LinearLayout.LayoutParams cp=new LinearLayout.LayoutParams(-1,-2);cp.setMargins(0,dp(6),0,dp(6));list.addView(card,cp);
     }
   }
   private void read(int index){
-    prefs.edit().putBoolean("linked_"+index,true).apply();
+    
     Intent intent=new Intent(this,NativePdfReaderActivity.class);
     intent.putExtra("book_id",DRIVE_IDS[index]);
     intent.putExtra("book_title",BOOK_TITLES[index]);
