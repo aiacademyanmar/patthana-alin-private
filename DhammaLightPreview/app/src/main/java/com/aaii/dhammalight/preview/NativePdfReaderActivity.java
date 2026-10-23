@@ -30,13 +30,17 @@ public class NativePdfReaderActivity extends Activity {
     private int current=0, total=0;
     private boolean picking=false;
     private boolean comicMode=false;
+    private String bookId;
+    private String bookTitle;
     private float zoom=1.0f;
     private LinearLayout tools;
 
     @Override public void onCreate(Bundle state){
         super.onCreate(state);
         comicMode=getIntent().getBooleanExtra("comic_mode",false);
-        prefs=getSharedPreferences(comicMode?"comic_reader_v31":"pdf_reader_preview",MODE_PRIVATE);
+        bookId=getIntent().getStringExtra("book_id");
+        bookTitle=getIntent().getStringExtra("book_title");
+        prefs=getSharedPreferences(comicMode?"comic_reader_v31":(bookId!=null?"ebook_"+bookId:"pdf_reader_preview"),MODE_PRIVATE);
         String saved=prefs.getString("selected_pdf",null);
         if(saved!=null){
             try{open(Uri.parse(saved));return;}catch(Exception ignored){}
@@ -78,7 +82,7 @@ public class NativePdfReaderActivity extends Activity {
     }
     private void build(){
         LinearLayout root=new LinearLayout(this);root.setOrientation(LinearLayout.VERTICAL);root.setBackgroundColor(Color.rgb(5,28,34));setContentView(root);
-        TextView head=new TextView(this);head.setText(comicMode?"☸  Dhamma Light  •  ရုပ်ပြ ပဋ္ဌာန်း":"☸  Native PDF Reader");
+        TextView head=new TextView(this);head.setText(comicMode?"☸  Dhamma Light  •  ရုပ်ပြ ပဋ္ဌာန်း":"☸  "+(bookTitle!=null?bookTitle:"Native PDF Reader"));
         head.setTextSize(16);head.setTextColor(Color.rgb(244,203,114));head.setPadding(20,18,10,16);
         root.addView(head);
         image=new ImageView(this);image.setBackgroundColor(Color.WHITE);
