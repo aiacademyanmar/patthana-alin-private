@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - dhamma-light-native-drive-reader-v3-5-20261023
+      - dhamma-light-v3-5-install-repair-20261023
 jobs:
   compile:
     runs-on: ubuntu-latest
@@ -33,6 +33,18 @@ jobs:
         run: |
           zip -r -q DhammaLight_Drive_Native_V3_5_GRADLE_SOURCE.zip DhammaLightPreview .github/workflows/dhamma-light-preview-apk.yml
           test -s DhammaLight_Drive_Native_V3_5_GRADLE_SOURCE.zip
+      - name: Export official Android signing tools for local content packaging
+        run: |
+          mkdir -p verified-android-tools
+          cp "$ANDROID_HOME/build-tools/35.0.0/lib/apksigner.jar" verified-android-tools/apksigner.jar
+          cp "$ANDROID_HOME/build-tools/35.0.0/zipalign" verified-android-tools/zipalign
+          file verified-android-tools/*
+          du -h verified-android-tools/*
+      - uses: actions/upload-artifact@v4
+        with:
+          name: official-android-signing-tools-v35
+          path: verified-android-tools/
+          if-no-files-found: error
       - uses: actions/upload-artifact@v4
         with:
           name: Dhamma-Light-Drive-Native-V3_5-APK
