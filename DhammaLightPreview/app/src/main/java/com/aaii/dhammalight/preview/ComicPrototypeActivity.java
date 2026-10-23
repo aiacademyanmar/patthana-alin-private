@@ -145,6 +145,7 @@ public final class ComicPrototypeActivity extends Activity {
     attach(main,hero,-2,8);
     attach(main,btn("▶ ရုပ်ပြသင်ခန်းစာများ စတင်ဖတ်ရန်",GOLD,INK,()->library("")),57,8);
     feature("▣  မူရင်း Comic Reader","ဖုန်းမှ မူရင်း ၂၄ မျက်နှာ PDF ကို တစ်ကြိမ်ရွေးပြီး App အတွင်းဖတ်ရန်",TEAL,()->openReader(prefs.getInt("last_lesson",0)));
+    feature("📅 နေ့စဉ်ဖတ်စာ · ၂၄ ရက်","အကျဉ်း၊ ဖတ်ပြီးမှတ်သားခြင်း၊ ကိုယ်ပိုင်မှတ်စု၊ အသံနှင့်စာဖတ်",MAROON,()->startActivity(new Intent(this,DailyReadingActivity.class)));
     feature("နေ့စဉ်စာဆောင် · CHANNEL","BOOKS နှင့် COMIC · Google Drive Catalog Sync",TEAL,()->startActivity(new Intent(this,DailyChannelActivity.class)));
     feature("📚  Google Drive eLibrary · စာအုပ် ၁၀ အုပ်","စာအုပ်အမည် ကြိုတင်ထည့်ထားပြီး App အတွင်း PDF ဖတ်ရန်",TEAL,()->startActivity(new Intent(this,DriveBookCatalogActivity.class)));
     feature("☷  ပစ္စည်း ၂၄ မျိုး","အမည်ရှာခြင်း၊ အဓိပ္ပာယ်၊ တစ်ရွက်ချင်း ရွေးဖတ်ခြင်း",MAROON,()->library(""));
@@ -223,6 +224,7 @@ public final class ComicPrototypeActivity extends Activity {
   private void more(){
     lastMode="more";start("MORE LEARNING");
     label("Dhamma Light · Native Comic APK Prototype",21,true);
+    feature("📅 နေ့စဉ်ဖတ်စာ","ယနေ့သင်ခန်းစာ၊ မှတ်စု၊ Progress",TEAL,()->startActivity(new Intent(this,DailyReadingActivity.class)));
     feature("စာဖတ် / Quiz / YouTube Links","ယခင် Native Preview သင်ခန်းစာများကို ဆက်လက်အသုံးပြုရန်",TEAL,()->startActivity(new Intent(this,MainActivity.class)));
     feature("📚  Google Drive စာအုပ် ၁၀ အုပ်","Catalog + စာအုပ်တစ်အုပ်ချင်းဖတ်ရန်",TEAL,()->startActivity(new Intent(this,DriveBookCatalogActivity.class)));
     feature("စာအုပ်သီးသန့် PDF Reader","အခြားစာအုပ်ကို Native PDF Reader ဖြင့် ဖတ်ရန်",MAROON,()->startActivity(new Intent(this,NativePdfReaderActivity.class)));
