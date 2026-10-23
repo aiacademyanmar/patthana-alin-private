@@ -1,6 +1,7 @@
 package asia.aaii.patthanareader;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.app.AlertDialog;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.BitmapFactory;
@@ -39,6 +40,7 @@ public class MainActivity extends Activity {
     label("☸ ပဋ္ဌာန်း ၂၄ ပစ္စည်း",24,true,true,true);
     label("ပါဠိဖတ်ရှုရန် · အသံနားထောင်ရန် · Offline Reader",12,false,true,false);
     buttons(button("ပစ္စည်းစာရင်း",()->choose()),button("၂၄ ပါး အကျဉ်း",()->{all=true;render();}));
+    buttons(button("ဓမ္မစာအုပ် ၁၀ အုပ်",()->startActivity(new Intent(this,BookLibraryActivity.class))));
     buttons(button("A−",()->{font=Math.max(18,font-2);save();render();}),button("A+",()->{font=Math.min(44,font+2);save();render();}),button(dark?"အလင်း":"ညဖတ်",()->{dark=!dark;save();render();}),button(roman?"Roman ✓":"Roman –",()->{roman=!roman;save();render();}));
     if(all){label("ပစ္စယုဒ္ဒေသ အကျဉ်းစာရင်း",20,true,true,true);label("နမော တဿ ဘဂဝတော အရဟတော သမ္မာသမ္ဗုဒ္ဓဿ။",font,true,true,false);StringBuilder full=new StringBuilder();for(int i=0;i<24;i++){if(i>0)full.append("၊ ");full.append(MM[i]);}full.append("တိ။");label(full.toString(),font,false,false,false);if(roman)label(String.join(", ",PALI)+"ti.",Math.max(13,font-6),false,false,true);for(int i=0;i<24;i++){final int n=i+1;column.addView(button(num(n)+"။ "+MM[i],()->select(n)));}return;}
     int i=selected-1;label("ပစ္စည်း "+num(selected)+" / ၂၄",13,true,true,true);label(MM[i],font+3,true,true,false);if(roman)label(PALI[i],17,false,true,true);label(MM[i]+"။",font,true,true,false);label("မြန်မာအဓိပ္ပာယ် (အကျဉ်း)",16,true,false,true);label(MEANING[i]+"။",font-2,false,false,false);label("ဤအဓိပ္ပာယ်မှာ သင်ကြားရေးအကျဉ်းဖြစ်ပြီး ကျမ်းစာအနက် အပြည့်အစုံ မဟုတ်ပါ။",12,false,false,false);
