@@ -1,0 +1,143 @@
+{
+  "version": "4.1.0",
+  "source": "Google Drive two-folder research",
+  "source_folders": [
+    "1hceA6cL4CPrzZqewUrRyFLO-hp57otCo",
+    "1C7s8XSjBo244CPpi_wz7hvJb_x5mQ9rB"
+  ],
+  "file_count": 10,
+  "unique_count": 9,
+  "note": "Unicode display names provisional. Source PDFs remain on Drive; not bundled into public APK. Duplicate preserved as alternate source.",
+  "books": [
+    {
+      "id": "1VzwBSYe37HVWbyoiGN5cnnHaLXaoZjoE",
+      "title": "ပုံပြ ပဋ္ဌာန်း",
+      "original": "ပံုျပ ပ႒န္း.pdf",
+      "category": "ရုပ်ပြသင်ခန်းစာ",
+      "pages": 25,
+      "text_status": "image_scan",
+      "folder_id": "1hceA6cL4CPrzZqewUrRyFLO-hp57otCo",
+      "hash": "a038c6adff2e7d75bdc77ae1ff20660f762388e7eed6c1d5487df17b7003887b",
+      "source_url": "https://drive.google.com/file/d/1VzwBSYe37HVWbyoiGN5cnnHaLXaoZjoE/view",
+      "duplicate_of": null,
+      "rights_confirmed": false
+    },
+    {
+      "id": "1KQaGWnzrPOGcGcVw6UVgClKd3wSYMtDA",
+      "title": "၂၄ ပစ္စည်း ဆုတောင်း",
+      "original": "၂၄ ပစၥည္း  ဆုေတာင္း.pdf",
+      "category": "ရွတ်ဖတ်/ဆုတောင်း",
+      "pages": 3,
+      "text_status": "image_scan",
+      "folder_id": "1hceA6cL4CPrzZqewUrRyFLO-hp57otCo",
+      "hash": "95adea503f319eda9053d67f1dd091c0615616ee8532a750b96572307cf65c2f",
+      "source_url": "https://drive.google.com/file/d/1KQaGWnzrPOGcGcVw6UVgClKd3wSYMtDA/view",
+      "duplicate_of": null,
+      "rights_confirmed": false
+    },
+    {
+      "id": "11Mr3xQqfFOEmOn5srpszXnMbBwg7uErX",
+      "title": "အခြေပြု ပဋ္ဌာန်း",
+      "original": "အေျချပဳပ႒န္း.pdf",
+      "category": "အခြေခံမှအဆင့်မြင့်",
+      "pages": 605,
+      "text_status": "legacy_encoded_text",
+      "folder_id": "1hceA6cL4CPrzZqewUrRyFLO-hp57otCo",
+      "hash": "9a6a117cce922eab4e59a5dfec785bf526468c90fb1ee1a19f70f578bef5d3ed",
+      "source_url": "https://drive.google.com/file/d/11Mr3xQqfFOEmOn5srpszXnMbBwg7uErX/view",
+      "duplicate_of": null,
+      "rights_confirmed": false
+    },
+    {
+      "id": "1oWP7KpXcU2t8py_VkZyW-jNgdZIpj4iB",
+      "title": "မြတ်ပဋ္ဌာန်း",
+      "original": "ျမတ္ပ႒န္း.pdf",
+      "category": "ကျမ်းစာ/ရွတ်ဖတ်",
+      "pages": 28,
+      "text_status": "image_scan",
+      "folder_id": "1hceA6cL4CPrzZqewUrRyFLO-hp57otCo",
+      "hash": "9f21f0233d9ab7aa20e3ac06c8609cf234599f9fa8f79663b715c33922672386",
+      "source_url": "https://drive.google.com/file/d/1oWP7KpXcU2t8py_VkZyW-jNgdZIpj4iB/view",
+      "duplicate_of": null,
+      "rights_confirmed": false
+    },
+    {
+      "id": "1If00R4floO4L5XyHKFNjRQBdI_LW_54K",
+      "title": "၂၄ ပစ္စည်း",
+      "original": "၂၄ ပစၥည္း.pdf",
+      "category": "ရုပ်ပြသင်ခန်းစာ",
+      "pages": 25,
+      "text_status": "image_scan",
+      "folder_id": "1hceA6cL4CPrzZqewUrRyFLO-hp57otCo",
+      "hash": "88b127bbbe39498168bf1ec9afa6b26e4ed947e5241c004031c0e1ee8390b5d4",
+      "source_url": "https://drive.google.com/file/d/1If00R4floO4L5XyHKFNjRQBdI_LW_54K/view",
+      "duplicate_of": null,
+      "rights_confirmed": false
+    },
+    {
+      "id": "1xiqpsYPUB2eCfK9-p0qY74gZD9azytPT",
+      "title": "ပဋ္ဌာန်း အဓိပ္ပာယ်ရှင်းလင်းချက်",
+      "original": "ပ႒ာန္းအဓိပၸါယ္ရွင္းလင္းခ်က္ pa htan (a kone lone ).pdf",
+      "category": "အဓိပ္ပာယ်ရှင်းလင်းချက်",
+      "pages": 19,
+      "text_status": "legacy_encoded_text",
+      "folder_id": "1hceA6cL4CPrzZqewUrRyFLO-hp57otCo",
+      "hash": "d2a5814dbd072b26efe7807079f791d4fcc11324f8787c2cdf6e595fe38828d2",
+      "source_url": "https://drive.google.com/file/d/1xiqpsYPUB2eCfK9-p0qY74gZD9azytPT/view",
+      "duplicate_of": null,
+      "rights_confirmed": false
+    },
+    {
+      "id": "1AH_0-srHSfWYzslnTolS4XQk8crWCaw8",
+      "title": "ပဋ္ဌာန်း (ဂျေဂျူဝိုင်)",
+      "original": "ပ႒ာန္း (ေဂ်ဂ်ဴဝိုင္ ).pdf",
+      "category": "အဓိပ္ပာယ်ရှင်းလင်းချက်",
+      "pages": 35,
+      "text_status": "zawgyi_unicode_text",
+      "folder_id": "1C7s8XSjBo244CPpi_wz7hvJb_x5mQ9rB",
+      "hash": "e3b4169d1e712144",
+      "source_url": "https://drive.google.com/file/d/1AH_0-srHSfWYzslnTolS4XQk8crWCaw8/view",
+      "duplicate_of": null,
+      "rights_confirmed": false
+    },
+    {
+      "id": "1OCjw6v1luQxzOcHyeI3HueIkq0VWX25W",
+      "title": "ပဋ္ဌာန်း အဓိပ္ပာယ်ရှင်းလင်းချက်နှင့် အမေးအဖြေ",
+      "original": "ပ႒ာန္းအဓိပၸါယ္ရွင္းလင္းခ်က္ႏွင့္အေမးအေျဖ(ခင္ခ်ိဳထြန္း အယ္ဒီတာအဖြဲ႕).pdf",
+      "category": "အမေးအဖြေ",
+      "pages": 307,
+      "text_status": "image_scan",
+      "folder_id": "1C7s8XSjBo244CPpi_wz7hvJb_x5mQ9rB",
+      "hash": "7f8cf706e47e1673",
+      "source_url": "https://drive.google.com/file/d/1OCjw6v1luQxzOcHyeI3HueIkq0VWX25W/view",
+      "duplicate_of": null,
+      "rights_confirmed": false
+    },
+    {
+      "id": "1Te6Tz_pgsw0zFSCG0JBSUtF8lOg5neDO",
+      "title": "ရောင်စုံရုပ်ပြ ပဋ္ဌာန်း ၂၄ ပစ္စည်း",
+      "original": "ေရာင္စံုရုပ္ျပပ႒ာန္း ၂၄ ပစၥည္း.pdf",
+      "category": "ရုပ်ပြသင်ခန်းစာ",
+      "pages": 25,
+      "text_status": "image_scan",
+      "folder_id": "1C7s8XSjBo244CPpi_wz7hvJb_x5mQ9rB",
+      "hash": "88b127bbbe39498168bf1ec9afa6b26e4ed947e5241c004031c0e1ee8390b5d4",
+      "source_url": "https://drive.google.com/file/d/1Te6Tz_pgsw0zFSCG0JBSUtF8lOg5neDO/view",
+      "duplicate_of": "1If00R4floO4L5XyHKFNjRQBdI_LW_54K",
+      "rights_confirmed": false
+    },
+    {
+      "id": "1jJDlSHbJ3ZVjsfdYlP-DPzreSJUlkg-c",
+      "title": "ခင်မောင်အေး — ရောင်စုံရုပ်ပြ ပဋ္ဌာန်း ၂၄ ပစ္စည်းနှင့် ရှင်းလင်းချက်များ",
+      "original": "ခင္ေမာင္ေအး - ေရာင္စံုရုပ္ျပပ႒ာန္း ၂၄ ပစၥည္းႏွင့္ရွင္းလင္းခ်က္မ်ား.pdf",
+      "category": "ရုပ်ပြသင်ခန်းစာ",
+      "pages": 40,
+      "text_status": "image_scan",
+      "folder_id": "1C7s8XSjBo244CPpi_wz7hvJb_x5mQ9rB",
+      "hash": "70f0650076f43e44",
+      "source_url": "https://drive.google.com/file/d/1jJDlSHbJ3ZVjsfdYlP-DPzreSJUlkg-c/view",
+      "duplicate_of": null,
+      "rights_confirmed": false
+    }
+  ]
+}
