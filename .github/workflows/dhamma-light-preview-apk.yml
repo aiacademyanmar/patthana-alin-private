@@ -1,9 +1,9 @@
-name: Dhamma Light Native Preview APK
+name: Dhamma Light Comic V3.1 Native APK
 on:
   workflow_dispatch:
   push:
     branches:
-      - dhamma-light-preview-20261023
+      - dhamma-light-comic-prototype-20261023
 jobs:
   compile:
     runs-on: ubuntu-latest
@@ -27,11 +27,11 @@ jobs:
       - name: Validate APK exists and compute checksum
         run: |
           test -s DhammaLightPreview/app/build/outputs/apk/debug/app-debug.apk
-          cp DhammaLightPreview/app/build/outputs/apk/debug/app-debug.apk DhammaLight_Kids_PREVIEW.apk
+          cp DhammaLightPreview/app/build/outputs/apk/debug/app-debug.apk DhammaLight_Comic_V3_1_PROTOTYPE.apk
           sha256sum DhammaLight_Kids_PREVIEW.apk > DhammaLight_Kids_PREVIEW.apk.sha256
       - uses: actions/upload-artifact@v4
         with:
-          name: Dhamma-Light-Kids-Preview-APK
+          name: Dhamma-Light-Comic-V3_1-Prototype-APK
           path: |
             DhammaLight_Kids_PREVIEW.apk
             DhammaLight_Kids_PREVIEW.apk.sha256
