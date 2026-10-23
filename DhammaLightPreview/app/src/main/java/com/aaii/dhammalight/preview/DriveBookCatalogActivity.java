@@ -93,7 +93,7 @@ public final class DriveBookCatalogActivity extends Activity {
     Button folder=new Button(this);folder.setAllCaps(false);folder.setText("☁ Google Drive Folder ဖွင့်ရန်");
     folder.setOnClickListener(v->{Intent it=new Intent(Intent.ACTION_VIEW,Uri.parse(FOLDER_URL));startActivity(it);});
     root.addView(folder);
-    TextView notice=text("Drive ↗ သည် Google Drive app/browser ထဲဖွင့်သည်။ App ထဲမှာဖတ်ရန်ဆိုပါက PDF ကို ဖုန်းမှရွေးပြီးမှ Native Reader ထဲတွင်ဖွင့်ပါမည်။",12,Color.rgb(95,88,75),false);
+    TextView notice=text("Preview ↗ သည် Google Drive app/browser ထဲဖွင့်သည်။ App ထဲမှာဖတ်ရန်ဆိုပါက PDF ကို ဖုန်းမှရွေးပြီးမှ Native Reader ထဲတွင်ဖွင့်ပါမည်။",12,Color.rgb(95,88,75),false);
     notice.setPadding(dp(16),dp(8),dp(16),dp(12));root.addView(notice);
     search.addTextChangedListener(new TextWatcher(){
       public void beforeTextChanged(CharSequence s,int start,int count,int after){}
@@ -115,7 +115,7 @@ public final class DriveBookCatalogActivity extends Activity {
       Button read=new Button(this);read.setAllCaps(false);read.setText("▣ App ထဲမှာ ဖတ်မည်");
       read.setOnClickListener(v->read(index));row.addView(read,new LinearLayout.LayoutParams(0,dp(54),1));
       Button link=new Button(this);link.setAllCaps(false);link.setText("Drive ↗");
-      link.setOnClickListener(v->{Intent intent=new Intent(Intent.ACTION_VIEW,Uri.parse("https://drive.google.com/file/d/"+DRIVE_IDS[index]+"/view"));startActivity(intent);});
+      link.setOnClickListener(v->{Intent intent=new Intent(this,DrivePreviewActivity.class);intent.putExtra("drive_id",DRIVE_IDS[index]);intent.putExtra("book_title",BOOK_TITLES[index]);startActivity(intent);});
       row.addView(link,new LinearLayout.LayoutParams(0,dp(54),1));card.addView(row);
       if(index==6){
         Button lessons=new Button(this);lessons.setAllCaps(false);
@@ -128,8 +128,8 @@ public final class DriveBookCatalogActivity extends Activity {
   }
   private void read(int index){
     
-    Intent intent=new Intent(this,NativePdfReaderActivity.class);
-    intent.putExtra("book_id",DRIVE_IDS[index]);
+    Intent intent=new Intent(this,DriveInAppReaderActivity.class);
+    intent.putExtra("drive_id",DRIVE_IDS[index]);
     intent.putExtra("book_title",BOOK_TITLES[index]);
     startActivity(intent);
   }
