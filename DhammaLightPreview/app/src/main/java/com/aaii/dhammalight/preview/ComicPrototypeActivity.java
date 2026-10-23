@@ -145,6 +145,7 @@ public final class ComicPrototypeActivity extends Activity {
     attach(main,hero,-2,8);
     attach(main,btn("▶ ရုပ်ပြသင်ခန်းစာများ စတင်ဖတ်ရန်",GOLD,INK,()->library("")),57,8);
     feature("▣  မူရင်း Comic Reader","ဖုန်းမှ မူရင်း ၂၄ မျက်နှာ PDF ကို တစ်ကြိမ်ရွေးပြီး App အတွင်းဖတ်ရန်",TEAL,()->openReader(prefs.getInt("last_lesson",0)));
+    feature("♫ ပါဠိ / မြန်မာ Audio Text Sync","MP3 ထည့်၊ စာပိုဒ်အချိန် JSON တင်၊ Highlight ကြည့်ရန်",TEAL,()->startActivity(new Intent(this,TimedRecitationActivity.class)));
     feature("📅 နေ့စဉ်ဖတ်စာ · ၂၄ ရက်","အကျဉ်း၊ ဖတ်ပြီးမှတ်သားခြင်း၊ ကိုယ်ပိုင်မှတ်စု၊ အသံနှင့်စာဖတ်",MAROON,()->startActivity(new Intent(this,DailyReadingActivity.class)));
     feature("နေ့စဉ်စာဆောင် · CHANNEL","BOOKS နှင့် COMIC · Google Drive Catalog Sync",TEAL,()->startActivity(new Intent(this,DailyChannelActivity.class)));
     feature("📚  Google Drive eLibrary · စာအုပ် ၁၀ အုပ်","စာအုပ်အမည် ကြိုတင်ထည့်ထားပြီး App အတွင်း PDF ဖတ်ရန်",TEAL,()->startActivity(new Intent(this,DriveBookCatalogActivity.class)));
