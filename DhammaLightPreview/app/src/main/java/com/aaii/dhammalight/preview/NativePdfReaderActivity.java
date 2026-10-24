@@ -26,7 +26,7 @@ public class NativePdfReaderActivity extends Activity {
     private PdfRenderer renderer;
     private ParcelFileDescriptor descriptor;
     private Bitmap bitmap;
-    private ImageView image;
+    private ZoomPanImageView image;
     private TextView counter;
     private SeekBar seek;
     private SharedPreferences prefs;
@@ -91,12 +91,15 @@ public class NativePdfReaderActivity extends Activity {
         total=renderer.getPageCount();if(total<1)throw new IOException("Empty PDF");
         int requested=getIntent().getIntExtra("lesson_page",-1);
         current=Math.max(0,Math.min(total-1,requested>=0?requested:prefs.getInt("saved_page",0)));
-        zoom=1.0f;
+
         if(bookId!=null)getSharedPreferences("patthana_ebook_catalog",MODE_PRIVATE).edit().putBoolean("linked_"+bookIndex(bookId),true).apply();
         build();draw();
     }
     private Button button(String value,Runnable action){
         Button b=new Button(this);b.setAllCaps(false);b.setText(value);
+        b.setTextColor(Color.rgb(9,47,48));b.setTypeface(android.graphics.Typeface.DEFAULT,android.graphics.Typeface.BOLD);
+        b.setTextSize(12);b.setMinHeight(50);b.setPadding(2,2,2,2);
+        b.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.rgb(244,209,135)));
         b.setOnClickListener(v->action.run());return b;
     }
     private void build(){
@@ -104,13 +107,13 @@ public class NativePdfReaderActivity extends Activity {
         TextView head=new TextView(this);head.setText(comicMode?"☸  Dhamma Light  •  ရုပ်ပြ ပဋ္ဌာန်း":"☸  "+(bookTitle!=null?bookTitle:"Native PDF Reader"));
         head.setTextSize(16);head.setTextColor(Color.rgb(244,203,114));head.setPadding(20,18,10,16);
         root.addView(head);
-        image=new ImageView(this);image.setBackgroundColor(Color.WHITE);
-        image.setScaleType(ImageView.ScaleType.FIT_CENTER);root.addView(image,new LinearLayout.LayoutParams(-1,0,1));
+        image=new ZoomPanImageView(this);image.setOnPageSwipeListener(dir->jump(current+dir));image.setBackgroundColor(Color.WHITE);
+        root.addView(image,new LinearLayout.LayoutParams(-1,0,1));
         LinearLayout row=new LinearLayout(this);row.setGravity(Gravity.CENTER);
-        row.addView(button("◀",()->jump(current-1)),new LinearLayout.LayoutParams(0,62,1));
+        row.addView(button("◀ Previous",()->jump(current-1)),new LinearLayout.LayoutParams(0,62,1));
         counter=new TextView(this);counter.setGravity(Gravity.CENTER);counter.setTextColor(Color.WHITE);
         row.addView(counter,new LinearLayout.LayoutParams(0,62,2));
-        row.addView(button("▶",()->jump(current+1)),new LinearLayout.LayoutParams(0,62,1));
+        row.addView(button("Next ▶",()->jump(current+1)),new LinearLayout.LayoutParams(0,62,1));
         root.addView(row);
         seek=new SeekBar(this);seek.setMax(total-1);seek.setProgress(current);
         seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
@@ -120,14 +123,18 @@ public class NativePdfReaderActivity extends Activity {
         });
         root.addView(seek);
         tools=new LinearLayout(this);
-        tools.addView(button("★ Save",()->{prefs.edit().putInt("marked_page",current).apply();Toast.makeText(this,"Page bookmarked",Toast.LENGTH_SHORT).show();}),new LinearLayout.LayoutParams(0,65,1));
-        tools.addView(button("↪ Bookmark",()->jump(prefs.getInt("marked_page",current))),new LinearLayout.LayoutParams(0,65,1));
-        tools.addView(button("Other PDF",this::pick),new LinearLayout.LayoutParams(0,65,1));
-        if(comicMode){
-          tools.addView(button("− Zoom",()->{zoom=Math.max(0.65f,zoom-0.25f);draw();}),new LinearLayout.LayoutParams(0,65,1));
-          tools.addView(button("+ Zoom",()->{zoom=Math.min(3.0f,zoom+0.25f);draw();}),new LinearLayout.LayoutParams(0,65,1));
-        }
+        tools.addView(button("☆ Save",()->{prefs.edit().putInt("marked_page",current).apply();Toast.makeText(this,"Page bookmarked",Toast.LENGTH_SHORT).show();}),new LinearLayout.LayoutParams(0,65,1));
+        tools.addView(button("★ Go to Mark",()->jump(prefs.getInt("marked_page",current))),new LinearLayout.LayoutParams(0,65,1));
+        tools.addView(button("＋ Open PDF",this::pick),new LinearLayout.LayoutParams(0,65,1));
+
         root.addView(tools);
+        LinearLayout zoomRow=new LinearLayout(this);
+        zoomRow.addView(button("− Zoom Out",()->image.zoomOut()),new LinearLayout.LayoutParams(0,58,1));
+        zoomRow.addView(button("+ Zoom In",()->image.zoomIn()),new LinearLayout.LayoutParams(0,58,1));
+        zoomRow.addView(button("↔ Fit / Reset",()->image.resetZoom()),new LinearLayout.LayoutParams(0,58,1));
+        root.addView(zoomRow);
+        TextView help=new TextView(this);help.setText("Pinch Zoom · 1-finger Drag · Double Tap · Swipe Page");
+        help.setTextColor(Color.WHITE);help.setGravity(Gravity.CENTER);root.addView(help);
         if(comicMode){
           LinearLayout bar=new LinearLayout(this);
           bar.addView(button("✓ ဖတ်ပြီး",()->{
@@ -145,7 +152,7 @@ public class NativePdfReaderActivity extends Activity {
         if(renderer==null)return;
         if(bitmap!=null){image.setImageDrawable(null);bitmap.recycle();bitmap=null;}
         try(PdfRenderer.Page pdf=renderer.openPage(current)){
-            float factor=Math.min(3.0f,Math.min(2.0f,1600f/Math.max(pdf.getWidth(),pdf.getHeight()))*zoom);
+            float factor=Math.min(3.0f,2000f/Math.max(pdf.getWidth(),pdf.getHeight()));
             final long pixels=(long)(pdf.getWidth()*factor)*(long)(pdf.getHeight()*factor);
             if(pixels>5500000L)factor*=(float)Math.sqrt(5500000.0/(double)pixels);
             int w=Math.max(1,(int)(pdf.getWidth()*factor));
@@ -154,7 +161,7 @@ public class NativePdfReaderActivity extends Activity {
             bitmap.eraseColor(Color.WHITE);
             pdf.render(bitmap,null,null,PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
             image.setImageBitmap(bitmap);
-            image.setScaleType(zoom>1.0f?ImageView.ScaleType.CENTER_CROP:ImageView.ScaleType.FIT_CENTER);
+            
         }catch(Exception e){Toast.makeText(this,"Page render error",Toast.LENGTH_LONG).show();}
         counter.setText((current+1)+" / "+total);
         seek.setProgress(current);
