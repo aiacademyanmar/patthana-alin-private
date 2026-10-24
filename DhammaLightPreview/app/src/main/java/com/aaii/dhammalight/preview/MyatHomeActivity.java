@@ -29,9 +29,13 @@ public final class MyatHomeActivity extends Activity {
    if(run!=null)card.setOnClickListener(v->run.run());
    LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(-1,-2);p.setMargins(0,dp(5),0,dp(6));body.addView(card,p);}
  private void go(Class<?> cls){startActivity(new Intent(this,cls));}
+ private void drive(){Intent i=new Intent(this,DriveQuickViewActivity.class);i.putExtra("book_id","1oWP7KpXcU2t8py_VkZyW-jNgdZIpj4iB");i.putExtra("book_title","မြတ်ပဋ္ဌန်း.pdf");startActivity(i);}
+ private void camera(){startActivity(new Intent(this,MarkerCameraActivity.class));}
  private void pdf(){Intent i=new Intent(this,NativePdfReaderActivity.class);i.putExtra("book_id","1oWP7KpXcU2t8py_VkZyW-jNgdZIpj4iB");i.putExtra("book_title","မြတ်ပဋ္ဌန်း.pdf");startActivity(i);}
  @Override public void onCreate(Bundle b){super.onCreate(b);getWindow().setStatusBarColor(TEAL);getWindow().setNavigationBarColor(TEAL);home();}
  private void home(){screen("မြတ်ပဋ္ဌန်း · Native Learning");
+   card("☁ Google Drive တန်းဖွင့်ဖတ်ရန်","App အတွင်း Online Preview; ဖိုင်ရွေးရန်မလို",this::drive);
+   card("📷 Camera ပဋ္ဌာန်း QR","PATTHANA:01–24 Marker Scan နဲ့ သင်ခန်းစာရှင်းပြချက်",this::camera);
    card("📖 မြတ်ပဋ္ဌန်း စာအုပ်","သိကောင်းစရာနှင့် ကိုယ်တွေ့ဖြစ်ရပ်များ • PDF ၂၈ မျက်နှာ",this::bookDetail);
    card("နေ့စဉ် ဖတ်စာ","၂၄ ရက်စာ • မှတ်စု • ဖတ်ပြီး မှတ်သားခြင်း",()->go(DailyReadingActivity.class));
    card("နေ့စဉ်စာဆောင် Channel","BOOKS / COMIC",()->go(DailyChannelActivity.class));
@@ -44,6 +48,8 @@ public final class MyatHomeActivity extends Activity {
    card("eLibrary စာအုပ် ၁၀ အုပ်","စာအုပ်ကြိုတင်စာရင်း",()->go(DriveBookCatalogActivity.class));}
  private void bookDetail(){screen("မြတ်ပဋ္ဌန်း • စာအုပ်အသေးစိတ်");
    card("မူရင်းစာအုပ်","PDF Scan ၂၈ မျက်နှာ • Burmese Classic source",null);
+   card("☁ Drive Online တန်းဖတ်ရန်","App ထဲတွင် Google Drive Preview ဖွင့်မည်",this::drive);
+   card("📷 Camera QR Learning","QR Marker ဖတ်ပြီး သင်ခန်းစာ ဖော်ပြ",this::camera);
    card("📖 စာဖတ်ရန်","Native Reader • Bookmark • Zoom",this::pdf);
    card("မာတိကာ","PDF 1–3 / 4–6 / 7–8 / 8–13 / 13–14 / 15–28",this::chapters);
    card("Unicode Reader","မူရင်းစာသားအပြည့် စိစစ်ရန် ကျန်ရှိသည်",this::paccaya);
@@ -65,6 +71,8 @@ public final class MyatHomeActivity extends Activity {
  private void settings(){screen("Settings / Sync");
    card("⟳ Google Drive Sync","BOOKS / COMIC စာရင်း refresh • API key ခွင့်ပြုချက် လိုအပ်",()->go(DailyChannelActivity.class));
    card("Native PDF Reader","ကိုယ်ပိုင် မြတ်ပဋ္ဌန်း PDF ရွေးဖွင့်မည်",this::pdf);
+   card("Drive Online Reader","ဖိုင်ရွေးရန်မလိုဘဲ Online Preview",this::drive);
+   card("Camera QR Learning","Camera permission ထိန်းချုပ်မှု",this::camera);
    card("About","မြတ်ပဋ္ဌန်း V5.0 Native • Original V4.0 visual style",null);}
  @Override public void onBackPressed(){home();}
 }
