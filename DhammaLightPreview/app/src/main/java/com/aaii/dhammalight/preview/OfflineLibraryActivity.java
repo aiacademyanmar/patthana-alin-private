@@ -65,7 +65,8 @@ public final class OfflineLibraryActivity extends Activity{
      startActivity(i);});
   panel("ပဋ္ဌာန်း ရုပ်ပြ A5 — ၂၄ မျက်နှာ","ပေးထားသော Comic PowerPoint မှ ၂၄ မျက်နှာလုံးကို Offline ကြည့်ရန်",
    "▣ ရုပ်ပြဖတ်ရန်",()->startActivity(new Intent(this,BundledComicReaderActivity.class)));
-  panel("Google Drive eBooks — စာအုပ် ၁၀ အုပ်","Drive PDF ကို App အတွင်း Download ပြီး Native Reader ဖွင့်ရန်","☁ Drive eLibrary",()->startActivity(new Intent(this,DriveBookCatalogActivity.class)));
+  panel("Unicode Offline Text — ပစ္စည်း ၂၄ မျိုး","အကျဉ်းချုပ်စာသားကို Native App ထဲမှာပဲ အင်တာနက်မလိုဖတ်ရန်","☷ Offline Text Reader",()->startActivity(new Intent(this,NativeTextLessonActivity.class)));
+  panel("Google Drive eBooks — စာအုပ် ၁၀ အုပ်","Drive PDF ကို App အတွင်း Download ပြီး Native Reader ဖွင့်ရန်","▣ Native eLibrary",()->startActivity(new Intent(this,DriveBookCatalogActivity.class)));
   panel("အခြား ကိုယ်ပိုင်စာအုပ်များ","ဖုန်း/Downloads မှ PDF ကို Android File Picker ဖြင့် ရွေးဖတ်ပြီး Offline ဆက်ဖတ်နိုင်သည်။",
    "＋ PDF ရွေးဖတ်ရန်",()->startActivity(new Intent(this,NativePdfReaderActivity.class)));
   panel("စာအုပ်မှ ၂၄ ပစ္စည်း Lesson Map","ဂျေဂျူဝိုင် စာအုပ်၏ သက်ဆိုင်ရာ PDF စာမျက်နှာကို ရွေးဖတ်ရန်",
