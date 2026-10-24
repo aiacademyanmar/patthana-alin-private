@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
   <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.CAMERA"/>
+  <uses-feature android:name="android.hardware.camera" android:required="false"/>
   <application android:label="မြတ်ပဋ္ဌန်း · Dhamma Light"
      android:allowBackup="false" android:theme="@android:style/Theme.Material.Light.NoActionBar"
      android:usesCleartextTraffic="false">
@@ -12,6 +14,8 @@
     <activity android:name=".NativePdfReaderActivity" android:exported="false"/>
     <activity android:name=".MainActivity" android:exported="false"/>
     <activity android:name=".ComicPrototypeActivity" android:exported="false"/>
+    <activity android:name=".DriveQuickViewActivity" android:exported="false"/>
+    <activity android:name=".MarkerCameraActivity" android:exported="false"/>
     <activity android:name=".MyatHomeActivity" android:exported="true">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
