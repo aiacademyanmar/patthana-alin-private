@@ -36,7 +36,9 @@ public final class OfflineHomeActivity extends Activity {
   tile("02 · Offline eLibrary","ဂျေဂျူဝိုင်စာအုပ် • PDF Reader • စာအုပ်စင်",OfflineLibraryActivity.class);
   tile("03 · ကလေးသင်ခန်းစာ & Quiz","ပစ္စည်း ၂၄ မျိုး • Quiz • သရုပ်ပြ • TTS",MainActivity.class);
   tile("04 · နေ့စဉ်စာဆောင် Channel","Daily Lesson • Notes • 14-day Archive",DailyReadingChannelActivity.class);
+  tile("05 · Camera AR Learning","Marker Scan ၂၄ မျိုး • Camera ပေါ်မှာ အဓိပ္ပာယ် ပြသခြင်း",CameraMarkerLearningActivity.class);
+  tile("06 · Offline Unicode စာဖတ်","ပစ္စည်း ၂၄ မျိုး အကျဉ်းချုပ် • စာလုံးအရွယ်ပြောင်း • TTS",NativeTextLessonActivity.class);
   tile("ထပ်ဆောင်း သင်ခန်းစာစာရင်း","အမည်ရှာဖွေရန် • ဖတ်ပြီးမှတ်သားရန်",ComicPrototypeActivity.class);
-  list.addView(text("စာအုပ်စာမျက်နှာတွေကို Offline APK ထဲတွင် ထည့်သွင်းထားပါသည်။ YouTube Link အတွက်သာ Internet လိုအပ်ပါသည်။",12,0xff877964));
+  list.addView(text("မူရင်း PDF နှင့် ရုပ်ပြ Offline ပါဝင်သည်။ Drive eBooks အသစ်ကို ပထမတစ်ကြိမ် ဖွင့်ရာမှာ Internet နှင့် Download ခွင့်လိုအပ်သည်။",12,0xff877964));
  }
 }
