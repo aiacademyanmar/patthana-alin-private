@@ -3,7 +3,7 @@ android {
   namespace 'com.aaii.dhammalight.preview'
   compileSdk 35
   defaultConfig {
-    applicationId 'com.aaii.dhammalight.preview'
+    applicationId 'com.aaii.dhammalight.v36'
     minSdk 24
     targetSdk 34
     versionCode 7
@@ -14,4 +14,5 @@ android {
     targetCompatibility JavaVersion.VERSION_17
   }
 }
+dependencies { implementation 'com.journeyapps:zxing-android-embedded:4.3.0' }
 tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
