@@ -35,7 +35,7 @@ public final class BundledComicReaderActivity extends Activity {
   private static final int GOLD=Color.rgb(233,183,70);
   private static final int IVORY=Color.rgb(255,250,239);
   private static final int INK=Color.rgb(40,40,36);
-  private ImageView pageView;
+  private ZoomPanImageView pageView;
   private Bitmap currentBitmap;
   private LinearLayout root;
   private SharedPreferences state;
@@ -61,7 +61,7 @@ public final class BundledComicReaderActivity extends Activity {
   }
   private Button button(String text,int color,int fg,Runnable action){
     Button b=new Button(this);b.setAllCaps(false);b.setText(text);b.setTextSize(14);
-    b.setTextColor(fg);b.setBackground(background(color,10));b.setOnClickListener(v->action.run());
+    b.setTextColor(fg);b.setTypeface(Typeface.DEFAULT,Typeface.BOLD);b.setBackground(background(color,10));b.setOnClickListener(v->action.run());
     return b;
   }
   @Override public void onCreate(Bundle bundle){
@@ -77,50 +77,25 @@ public final class BundledComicReaderActivity extends Activity {
     title=label("",15,IVORY,true);head.addView(title);root.addView(head);
     pageCounter=label("",14,GOLD,true);pageCounter.setGravity(Gravity.CENTER);root.addView(pageCounter);
     FrameLayout canvas=new FrameLayout(this);canvas.setBackgroundColor(Color.rgb(6,40,37));
-    pageView=new ImageView(this);pageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+    pageView=new ZoomPanImageView(this);pageView.setOnPageSwipeListener(dir->showPage(page+dir));
     canvas.addView(pageView,new FrameLayout.LayoutParams(-1,-1));
     root.addView(canvas,new LinearLayout.LayoutParams(-1,0,1));
 
-    scaling=new ScaleGestureDetector(this,new ScaleGestureDetector.SimpleOnScaleGestureListener(){
-      @Override public boolean onScale(ScaleGestureDetector detector){
-        float target=Math.max(1.0f,Math.min(3.0f,zoom*detector.getScaleFactor()));
-        zoom=target;
-        pageView.setScaleX(zoom);pageView.setScaleY(zoom);
-        return true;
-      }
-    });
-    gestures=new GestureDetector(this,new GestureDetector.SimpleOnGestureListener(){
-      @Override public boolean onDoubleTap(MotionEvent e){
-        zoom=zoom>1.01f?1:2;resetTransforms(false);return true;
-      }
-      @Override public boolean onSingleTapConfirmed(MotionEvent e){return true;}
-    });
-    pageView.setOnTouchListener((v,event)->{
-      scaling.onTouchEvent(event);gestures.onTouchEvent(event);
-      switch(event.getActionMasked()){
-        case MotionEvent.ACTION_DOWN:prevX=event.getX();prevY=event.getY();return true;
-        case MotionEvent.ACTION_MOVE:
-          if(!scaling.isInProgress()&&event.getPointerCount()==1&&zoom>1){
-            float moveX=event.getX()-prevX, moveY=event.getY()-prevY;
-            float width=pageView.getWidth(),height=pageView.getHeight();
-            float maxX=(zoom-1)*width/2,maxY=(zoom-1)*height/2;
-            pageView.setTranslationX(Math.min(maxX,Math.max(-maxX,pageView.getTranslationX()+moveX)));
-            pageView.setTranslationY(Math.min(maxY,Math.max(-maxY,pageView.getTranslationY()+moveY)));
-          }
-          prevX=event.getX();prevY=event.getY();return true;
-        case MotionEvent.ACTION_POINTER_UP:case MotionEvent.ACTION_UP:return true;
-      }
-      return true;
-    });
-
     LinearLayout tabs=new LinearLayout(this);tabs.setPadding(dp(8),dp(7),dp(8),dp(7));
     tabs.setBackgroundColor(IVORY);
-    tabs.addView(button("◀ ယခင်",TEAL,IVORY,()->showPage(Math.max(0,page-1))),new LinearLayout.LayoutParams(0,dp(50),1));
+    tabs.addView(button("◀ Previous",TEAL,IVORY,()->showPage(Math.max(0,page-1))),new LinearLayout.LayoutParams(0,dp(50),1));
     tabs.addView(button("★ မှတ်",GOLD,INK,()->{
       state.edit().putInt("bookmarked",page).apply();Toast.makeText(this,"Page "+(page+1)+" bookmarked",Toast.LENGTH_SHORT).show();
     }),new LinearLayout.LayoutParams(0,dp(50),1));
-    tabs.addView(button("နောက် ▶",TEAL,IVORY,()->showPage(Math.min(23,page+1))),new LinearLayout.LayoutParams(0,dp(50),1));
+    tabs.addView(button("Next ▶",TEAL,IVORY,()->showPage(Math.min(23,page+1))),new LinearLayout.LayoutParams(0,dp(50),1));
     root.addView(tabs);
+    LinearLayout zoomBar=new LinearLayout(this);
+    zoomBar.addView(button("− Zoom Out",IVORY,TEAL,()->pageView.zoomOut()),new LinearLayout.LayoutParams(0,55,1));
+    zoomBar.addView(button("+ Zoom In",GOLD,INK,()->pageView.zoomIn()),new LinearLayout.LayoutParams(0,55,1));
+    zoomBar.addView(button("↔ Fit / Reset",IVORY,TEAL,()->pageView.resetZoom()),new LinearLayout.LayoutParams(0,55,1));
+    root.addView(zoomBar);
+    TextView hint=label("Pinch Zoom · Hand Drag · Double Tap · Swipe Page",12,IVORY,false);
+    hint.setGravity(Gravity.CENTER);root.addView(hint);
 
     LinearLayout footer=new LinearLayout(this);footer.setPadding(dp(8),dp(6),dp(8),dp(8));
     footer.addView(button("▣ ၂၄ မျက်နှာ",GOLD,INK,()->finish()),new LinearLayout.LayoutParams(0,dp(48),1));
@@ -131,17 +106,13 @@ public final class BundledComicReaderActivity extends Activity {
     footer.addView(button("⌂ Bookmark",GOLD,INK,()->showPage(state.getInt("bookmarked",page))),new LinearLayout.LayoutParams(0,dp(48),1));
     root.addView(footer);
   }
-  private void resetTransforms(boolean resetImage){
-    pageView.setScaleX(zoom);pageView.setScaleY(zoom);
-    pageView.setTranslationX(0);pageView.setTranslationY(0);
-  }
   private void showPage(int newPage){
     page=Math.max(0,Math.min(23,newPage));state.edit().putInt("last_lesson",page).apply();
     title.setText(String.format(Locale.US,"%02d",page+1)+"  "+ComicPrototypeActivity.lessonName(page));
     pageCounter.setText((page+1)+" / 24    ·    Offline Original Comic");
     pageView.setImageDrawable(null);
     if(currentBitmap!=null){currentBitmap.recycle();currentBitmap=null;}
-    zoom=1;resetTransforms(true);
+    pageView.resetZoom();
     try(InputStream stream=getAssets().open(assetPath(page))){
       BitmapFactory.Options opts=new BitmapFactory.Options();opts.inPreferredConfig=Bitmap.Config.RGB_565;
       currentBitmap=BitmapFactory.decodeStream(stream,null,opts);
