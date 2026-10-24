@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - dhamma-light-elibrary-camera-markers-v3-6-20261024
+      - dhamma-light-reader-touch-controls-v3-7-20261024
 jobs:
   compile:
     runs-on: ubuntu-latest
@@ -27,12 +27,12 @@ jobs:
       - name: Validate APK exists and compute checksum
         run: |
           test -s DhammaLightPreview/app/build/outputs/apk/debug/app-debug.apk
-          cp DhammaLightPreview/app/build/outputs/apk/debug/app-debug.apk DhammaLight_Native_Reader_AR_V3_6_PROTOTYPE.apk
-          sha256sum DhammaLight_Native_Reader_AR_V3_6_PROTOTYPE.apk > DhammaLight_Native_Reader_AR_V3_6_PROTOTYPE.apk.sha256
+          cp DhammaLightPreview/app/build/outputs/apk/debug/app-debug.apk DhammaLight_Reader_Touch_V3_7_PROTOTYPE.apk
+          sha256sum DhammaLight_Reader_Touch_V3_7_PROTOTYPE.apk > DhammaLight_Reader_Touch_V3_7_PROTOTYPE.apk.sha256
       - name: Package Gradle Android Source
         run: |
-          zip -r -q DhammaLight_Native_Reader_AR_V3_6_GRADLE_SOURCE.zip DhammaLightPreview .github/workflows/dhamma-light-preview-apk.yml
-          test -s DhammaLight_Native_Reader_AR_V3_6_GRADLE_SOURCE.zip
+          zip -r -q DhammaLight_Reader_Touch_V3_7_GRADLE_SOURCE.zip DhammaLightPreview .github/workflows/dhamma-light-preview-apk.yml
+          test -s DhammaLight_Reader_Touch_V3_7_GRADLE_SOURCE.zip
       - name: Export official Android signing tools for local content packaging
         run: |
           mkdir -p verified-android-tools
@@ -47,9 +47,9 @@ jobs:
           if-no-files-found: error
       - uses: actions/upload-artifact@v4
         with:
-          name: Dhamma-Light-Native-Reader-AR-V3_6-APK
+          name: Dhamma-Light-Reader-Touch-V3_7-APK
           path: |
-            DhammaLight_Native_Reader_AR_V3_6_PROTOTYPE.apk
-            DhammaLight_Native_Reader_AR_V3_6_PROTOTYPE.apk.sha256
-            DhammaLight_Native_Reader_AR_V3_6_GRADLE_SOURCE.zip
+            DhammaLight_Reader_Touch_V3_7_PROTOTYPE.apk
+            DhammaLight_Reader_Touch_V3_7_PROTOTYPE.apk.sha256
+            DhammaLight_Reader_Touch_V3_7_GRADLE_SOURCE.zip
           if-no-files-found: error
